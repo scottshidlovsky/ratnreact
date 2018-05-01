@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import jooq.tables.Todo;
+import jooq.tables.User;
 
 import org.jooq.Catalog;
 import org.jooq.Sequence;
@@ -31,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -1648949504;
+    private static final long serialVersionUID = -643436714;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -42,6 +43,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.TODO</code>.
      */
     public final Todo TODO = jooq.tables.Todo.TODO;
+
+    /**
+     * The table <code>PUBLIC.USER</code>.
+     */
+    public final User USER = jooq.tables.User.USER;
 
     /**
      * No further instances allowed
@@ -68,7 +74,8 @@ public class Public extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.SYSTEM_SEQUENCE_5BAE079D_0EED_4651_9113_78A8CD87DAEE);
+            Sequences.SYSTEM_SEQUENCE_616D8C3D_B284_465F_9FA5_E0DD3610DD09,
+            Sequences.SYSTEM_SEQUENCE_A861B386_7718_435F_9211_D8C684A8BB4D);
     }
 
     @Override
@@ -80,6 +87,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Todo.TODO);
+            Todo.TODO,
+            User.USER);
     }
 }

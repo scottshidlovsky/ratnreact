@@ -24,6 +24,7 @@ dependencies {
     compile ratpack.dependency('hikari')
     compile 'com.h2database:h2:1.4.186'
     compile 'org.jooq:jooq:3.8.1'
+    compile 'org.springframework.security:spring-security-web:5.0.4.RELEASE'
 }
 
 mainClassName = "com.scott.Main"

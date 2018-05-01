@@ -1,26 +1,21 @@
 package com.scott;
 
+import com.scott.user.LoginHandler;
+import com.scott.user.SecurityModule;
 import jooq.tables.Todo;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ratpack.exec.Blocking;
 import ratpack.exec.Promise;
 import ratpack.guice.Guice;
 import ratpack.hikari.HikariModule;
 import ratpack.jackson.Jackson;
 import ratpack.server.RatpackServer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import ratpack.service.Service;
-import ratpack.service.StartEvent;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 public class Main {
@@ -62,7 +57,7 @@ public class Main {
                     b.module(HikariModule.class, config -> {
                         config.setDataSourceClassName("org.h2.jdbcx.JdbcDataSource");
                         config.addDataSourceProperty("URL", "jdbc:h2:mem:tood;INIT=RUNSCRIPT FROM 'classpath:/init.sql'");
-                    });
+                    }).module(SecurityModule.class);
                 }))
 //                .registryOf(r -> r
 //                        .add(new ObjectMapper().registerModule(new Jdk8Module()))
@@ -70,6 +65,8 @@ public class Main {
                 .handlers(chain -> chain
                         .all(ctx -> {
                             System.out.println("logging requrest" + ctx.getRequest().getPath());
+                            System.out.println(ctx.get(PasswordEncoder.class).matches("test", "test"));
+                            System.out.println(ctx.get(PasswordEncoder.class).encode("password"));
 
                             ctx.next();
                         })
@@ -78,6 +75,7 @@ public class Main {
 //                            Optional<Person> personOptional = Optional.of(new Person("John"));
 //                            ctx.render(Jackson.json(personOptional));
 //                        })
+                        .path("login", LoginHandler.class)
                         .path("user", ctx -> {
                             DataSource dataSource = ctx.get(DataSource.class);
                             DSLContext dsl = DSL.using(dataSource, SQLDialect.H2);

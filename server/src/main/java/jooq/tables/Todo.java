@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Todo extends TableImpl<TodoRecord> {
 
-    private static final long serialVersionUID = -1757133137;
+    private static final long serialVersionUID = 1555470812;
 
     /**
      * The reference instance of <code>PUBLIC.TODO</code>
@@ -53,7 +53,7 @@ public class Todo extends TableImpl<TodoRecord> {
     /**
      * The column <code>PUBLIC.TODO.ID</code>.
      */
-    public final TableField<TodoRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5BAE079D_0EED_4651_9113_78A8CD87DAEE)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<TodoRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A861B386_7718_435F_9211_D8C684A8BB4D)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.TODO.TITLE</code>.
