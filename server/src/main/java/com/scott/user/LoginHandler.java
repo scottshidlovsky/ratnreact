@@ -37,17 +37,16 @@ public class LoginHandler implements Handler {
     }
 
     private void handlePost(Context ctx) {
-        ctx.parse(Jackson.fromJson(User.class)).then(user -> {
+        ctx.parse(Jackson.fromJson(User.class)).map(user -> {
             DataSource dataSource = ctx.get(DataSource.class);
-            Promise<User> promise = retrieveUser(dataSource, user);
-            promise.then(u -> {
-                if (u == null) {
-                    ctx.getResponse().status(StatusCodes.NOT_FOUND);
-                    ctx.getResponse().send();
-                } else {
-                    ctx.render(json(u));
-                }
-            });
+            return retrieveUser(dataSource, user);
+        }).then(user -> {
+            if (user == null) {
+                ctx.getResponse().status(StatusCodes.NOT_FOUND);
+                ctx.getResponse().send();
+            } else {
+                ctx.render(json(user));
+            }
         });
     }
 
