@@ -19,6 +19,7 @@ import java.util.List;
 import static ratpack.jackson.Jackson.fromJson;
 import static ratpack.jackson.Jackson.json;
 
+
 public class LoginHandler implements Handler {
 
     private Promise<User> retrieveUser(DataSource dataSource, User user) {
@@ -37,10 +38,10 @@ public class LoginHandler implements Handler {
     }
 
     private void handlePost(Context ctx) {
-        ctx.parse(Jackson.fromJson(User.class)).map(user -> {
+        ctx.parse(Jackson.fromJson(User.class)).flatMap(user -> {
             DataSource dataSource = ctx.get(DataSource.class);
             return retrieveUser(dataSource, user);
-        }).then(user -> {
+        }).then((User user) -> {
             if (user == null) {
                 ctx.getResponse().status(StatusCodes.NOT_FOUND);
                 ctx.getResponse().send();

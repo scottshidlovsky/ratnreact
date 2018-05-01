@@ -12,6 +12,7 @@ import ratpack.exec.Promise;
 import ratpack.guice.Guice;
 import ratpack.hikari.HikariModule;
 import ratpack.jackson.Jackson;
+import ratpack.rx.RxRatpack;
 import ratpack.server.RatpackServer;
 
 import javax.sql.DataSource;
@@ -52,6 +53,8 @@ public class Main {
 
 
     public static void main(String... args) throws Exception {
+//        RxRatpack.initialize();
+
         RatpackServer.start(server -> server
                 .registry(Guice.registry(b -> {
                     b.module(HikariModule.class, config -> {
