@@ -1,5 +1,6 @@
 package com.scott.user;
 
+import com.google.inject.Inject;
 import com.scott.StatusCodes;
 import jooq.tables.Todo;
 import org.jooq.DSLContext;
@@ -22,25 +23,16 @@ import static ratpack.jackson.Jackson.json;
 
 public class LoginHandler implements Handler {
 
-    private Promise<User> retrieveUser(DataSource dataSource, User user) {
-        DSLContext dsl = DSL.using(dataSource, SQLDialect.H2);
-        return Blocking.get(() -> {
-            Record record = dsl.select()
-                    .from(jooq.tables.User.USER)
-                    .where(jooq.tables.User.USER.USERNAME.eq(user.getUsername()))
-                    .fetchOne();
-            if (record != null) {
-                return record.into(User.class);
-            } else {
-                return null;
-            }
-        });
+    UserRepo userRepo;
+
+    @Inject
+    LoginHandler(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     private void handlePost(Context ctx) {
         ctx.parse(Jackson.fromJson(User.class)).flatMap(user -> {
-            DataSource dataSource = ctx.get(DataSource.class);
-            return retrieveUser(dataSource, user);
+            return this.userRepo.retrieveUser(user);
         }).then((User user) -> {
             if (user == null) {
                 ctx.getResponse().status(StatusCodes.NOT_FOUND);
@@ -54,9 +46,7 @@ public class LoginHandler implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
         ctx.byMethod(m -> {
-            m.post(h -> {
-                handlePost(h);
-            });
+            m.post(this::handlePost);
         });
     }
 }
