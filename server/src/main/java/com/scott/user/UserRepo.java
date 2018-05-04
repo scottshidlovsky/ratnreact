@@ -16,16 +16,15 @@ public class UserRepo {
 
     @Inject()
     UserRepo(DataSource dataSource) {
-        System.out.println("data source" + dataSource);
         this.dataSource = dataSource;
     }
 
-    public Promise<User> retrieveUser(User user) {
+    public Promise<User> retrieveUserByUsername(String username) {
         DSLContext dsl = DSL.using(this.dataSource, SQLDialect.H2);
         return Blocking.get(() -> {
             Record record = dsl.select()
                     .from(jooq.tables.User.USER)
-                    .where(jooq.tables.User.USER.USERNAME.eq(user.getUsername()))
+                    .where(jooq.tables.User.USER.USERNAME.eq(username))
                     .fetchOne();
             if (record != null) {
                 return record.into(User.class);
