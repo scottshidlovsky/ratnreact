@@ -32,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -643436714;
+    private static final long serialVersionUID = 465154910;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -40,14 +40,14 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
-     * The table <code>PUBLIC.TODO</code>.
-     */
-    public final Todo TODO = jooq.tables.Todo.TODO;
-
-    /**
      * The table <code>PUBLIC.USER</code>.
      */
     public final User USER = jooq.tables.User.USER;
+
+    /**
+     * The table <code>PUBLIC.TODO</code>.
+     */
+    public final Todo TODO = jooq.tables.Todo.TODO;
 
     /**
      * No further instances allowed
@@ -74,8 +74,8 @@ public class Public extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.SYSTEM_SEQUENCE_616D8C3D_B284_465F_9FA5_E0DD3610DD09,
-            Sequences.SYSTEM_SEQUENCE_A861B386_7718_435F_9211_D8C684A8BB4D);
+            Sequences.SYSTEM_SEQUENCE_7DA5000A_206C_46AD_AF7E_8851BBAFBDEA,
+            Sequences.SYSTEM_SEQUENCE_F00F25BB_2029_4E20_BF23_0C6EA0DCAC46);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Todo.TODO,
-            User.USER);
+            User.USER,
+            Todo.TODO);
     }
 }

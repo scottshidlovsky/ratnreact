@@ -1,7 +1,9 @@
-package com.scott.user;
+package com.scott.authentication;
 
 import com.google.inject.Inject;
 import com.scott.StatusCodes;
+import com.scott.user.User;
+import com.scott.user.UserRepo;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 

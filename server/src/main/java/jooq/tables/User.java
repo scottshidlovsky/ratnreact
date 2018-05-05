@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -1813402944;
+    private static final long serialVersionUID = 1220496162;
 
     /**
      * The reference instance of <code>PUBLIC.USER</code>
@@ -51,9 +51,9 @@ public class User extends TableImpl<UserRecord> {
     }
 
     /**
-     * The column <code>PUBLIC.USER.ID</code>.
+     * The column <code>PUBLIC.USER.USER_ID</code>.
      */
-    public final TableField<UserRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_616D8C3D_B284_465F_9FA5_E0DD3610DD09)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<UserRecord, Long> USER_ID = createField("USER_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F00F25BB_2029_4E20_BF23_0C6EA0DCAC46)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.USER.USERNAME</code>.
@@ -108,7 +108,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public UniqueKey<UserRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_27;
+        return Keys.CONSTRAINT_2;
     }
 
     /**
@@ -116,7 +116,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.CONSTRAINT_27, Keys.CONSTRAINT_27E);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.CONSTRAINT_2, Keys.CONSTRAINT_27);
     }
 
     /**

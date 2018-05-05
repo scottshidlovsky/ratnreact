@@ -14,6 +14,7 @@ import jooq.Public;
 import jooq.tables.records.TodoRecord;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -35,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Todo extends TableImpl<TodoRecord> {
 
-    private static final long serialVersionUID = 1555470812;
+    private static final long serialVersionUID = -39661039;
 
     /**
      * The reference instance of <code>PUBLIC.TODO</code>
@@ -51,9 +52,9 @@ public class Todo extends TableImpl<TodoRecord> {
     }
 
     /**
-     * The column <code>PUBLIC.TODO.ID</code>.
+     * The column <code>PUBLIC.TODO.TODO_ID</code>.
      */
-    public final TableField<TodoRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A861B386_7718_435F_9211_D8C684A8BB4D)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<TodoRecord, Long> TODO_ID = createField("TODO_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7DA5000A_206C_46AD_AF7E_8851BBAFBDEA)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.TODO.TITLE</code>.
@@ -69,6 +70,11 @@ public class Todo extends TableImpl<TodoRecord> {
      * The column <code>PUBLIC.TODO.ORDER</code>.
      */
     public final TableField<TodoRecord, Integer> ORDER = createField("ORDER", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>PUBLIC.TODO.USER_ID</code>.
+     */
+    public final TableField<TodoRecord, Long> USER_ID = createField("USER_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * Create a <code>PUBLIC.TODO</code> table reference
@@ -113,7 +119,7 @@ public class Todo extends TableImpl<TodoRecord> {
      */
     @Override
     public UniqueKey<TodoRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_2;
+        return Keys.CONSTRAINT_276;
     }
 
     /**
@@ -121,7 +127,15 @@ public class Todo extends TableImpl<TodoRecord> {
      */
     @Override
     public List<UniqueKey<TodoRecord>> getKeys() {
-        return Arrays.<UniqueKey<TodoRecord>>asList(Keys.CONSTRAINT_2);
+        return Arrays.<UniqueKey<TodoRecord>>asList(Keys.CONSTRAINT_276);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<TodoRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<TodoRecord, ?>>asList(Keys.CONSTRAINT_2760);
     }
 
     /**

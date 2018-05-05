@@ -24,12 +24,12 @@ import jooq.tables.User;
 public class Tables {
 
     /**
-     * The table <code>PUBLIC.TODO</code>.
-     */
-    public static final Todo TODO = jooq.tables.Todo.TODO;
-
-    /**
      * The table <code>PUBLIC.USER</code>.
      */
     public static final User USER = jooq.tables.User.USER;
+
+    /**
+     * The table <code>PUBLIC.TODO</code>.
+     */
+    public static final Todo TODO = jooq.tables.Todo.TODO;
 }

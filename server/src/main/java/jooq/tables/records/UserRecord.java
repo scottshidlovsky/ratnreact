@@ -28,19 +28,19 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Record3<Long, String, String> {
 
-    private static final long serialVersionUID = 654561337;
+    private static final long serialVersionUID = 551470989;
 
     /**
-     * Setter for <code>PUBLIC.USER.ID</code>.
+     * Setter for <code>PUBLIC.USER.USER_ID</code>.
      */
-    public void setId(Long value) {
+    public void setUserId(Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>PUBLIC.USER.ID</code>.
+     * Getter for <code>PUBLIC.USER.USER_ID</code>.
      */
-    public Long getId() {
+    public Long getUserId() {
         return (Long) get(0);
     }
 
@@ -109,7 +109,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public Field<Long> field1() {
-        return User.USER.ID;
+        return User.USER.USER_ID;
     }
 
     /**
@@ -133,7 +133,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public Long value1() {
-        return getId();
+        return getUserId();
     }
 
     /**
@@ -157,7 +157,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public UserRecord value1(Long value) {
-        setId(value);
+        setUserId(value);
         return this;
     }
 
@@ -204,10 +204,10 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(Long id, String username, String password) {
+    public UserRecord(Long userId, String username, String password) {
         super(User.USER);
 
-        set(0, id);
+        set(0, userId);
         set(1, username);
         set(2, password);
     }
