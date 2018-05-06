@@ -2,6 +2,7 @@ package com.scott;
 
 import com.scott.authentication.AuthenticationHandler;
 import com.scott.authentication.LoginHandler;
+import com.scott.todo.TodoChain;
 import com.scott.todo.TodoHandler;
 import com.scott.user.User;
 import ratpack.guice.Guice;
@@ -64,7 +65,8 @@ public class Main {
 
                         // Authenticated endpoints
                         .all(AuthenticationHandler.class)
-                        .path("todos", TodoHandler.class)
+                        .prefix("todos", TodoChain.class)
+//                        .path("todos", TodoHandler.class)
                 )
         );
     }

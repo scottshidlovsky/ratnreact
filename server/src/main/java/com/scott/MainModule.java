@@ -8,6 +8,7 @@ import com.google.inject.Singleton;
 import com.scott.authentication.AuthenticationHandler;
 import com.scott.authentication.LoginHandler;
 import com.scott.authentication.TokenService;
+import com.scott.todo.TodoChain;
 import com.scott.todo.TodoHandler;
 import com.scott.todo.TodoRepo;
 import com.scott.user.UserRepo;
@@ -23,6 +24,8 @@ public class MainModule extends AbstractModule {
         bind(AuthenticationHandler.class);
         bind(TodoRepo.class);
         bind(TodoHandler.class);
+        bind(TodoChain.class);
+
     }
 
     @Provides
