@@ -54,18 +54,19 @@ public class Main {
                     }).module(MainModule.class);
                 }))
                 .handlers(chain -> chain
+
                         .all(ctx -> {
                             System.out.println("logging request: " + ctx.getRequest().getPath());
                             ctx.next();
                         })
 
                         // Open endpoints
-                        .path("login", LoginHandler.class)
+                        .path("api/login", LoginHandler.class)
 
 
                         // Authenticated endpoints
                         .all(AuthenticationHandler.class)
-                        .prefix("todos", TodoChain.class)
+                        .prefix("api/todos", TodoChain.class)
 //                        .path("todos", TodoHandler.class)
                 )
         );

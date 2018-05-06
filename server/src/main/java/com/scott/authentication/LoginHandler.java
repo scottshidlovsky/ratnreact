@@ -26,6 +26,7 @@ public class LoginHandler implements Handler {
     }
 
     private void handlePost(Context ctx) {
+        System.out.println(ctx.getRequest());
         ctx.parse(Jackson.fromJson(User.class)).flatMap(user -> {
             return this.userRepo.retrieveUserByUsername(user.getUsername());
         }).then((User user) -> {

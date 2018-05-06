@@ -19,6 +19,8 @@ public class TodoHandler implements Handler {
     }
 
     private void handleGet(Context ctx) {
+
+
         this.todoRepo.retrieveTodos(ctx.get(User.class).getUsername()).then((Map<Long, Todo> todos) -> {
             ctx.render(Jackson.json(todos));
         });
@@ -26,7 +28,9 @@ public class TodoHandler implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
+
         ctx.byMethod(c -> {
+
             c.get(this::handleGet);
         });
     }
