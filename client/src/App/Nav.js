@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {connect} from "react-redux";
 
 const navbarPadding = '15px 20px 12px 20px';
 const navbarFocusBorder = '3px solid #ab1327';
@@ -40,7 +41,7 @@ const NavItem = styled(Link)`
   }
 `;
 
-export default class Nav extends Component {
+class Nav extends Component {
   render() {
     return (
       <Navbar>
@@ -48,9 +49,20 @@ export default class Nav extends Component {
           <NavTitle to="/">Awesome Todo App</NavTitle>
         </div>
         <div>
-          <NavItem to="/login">Login</NavItem>
+          {
+            this.props.authenticated ? <NavItem to="/">{this.props.username}</NavItem> : <NavItem to="/login">Login</NavItem>
+          }
         </div>
       </Navbar>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.authentication.authenticated,
+    username: state.authentication.username
+  }
+};
+
+export default connect(mapStateToProps)(Nav);

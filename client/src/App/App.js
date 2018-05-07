@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import Nav from "./Nav";
 import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Login from '../Login/Login';
+import Dashboard from '../Dashboard';
+import {authenticationFailure} from "../Authentication";
+import {connect} from "react-redux";
 
 
 
@@ -14,11 +17,23 @@ class App extends Component {
         <div className="App">
           <Nav/>
           <Route path="/login" component={Login} />
-
+          <Route exact path="/" render={() => (
+            !this.props.authenticated ? (
+              <Redirect to="/login"/>
+            ) : (
+              <Dashboard/>
+            )
+          )}/>
         </div>
       </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.authentication.authenticated
+  }
+}
+
+export default connect(mapStateToProps)(App);

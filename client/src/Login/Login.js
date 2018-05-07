@@ -1,6 +1,9 @@
 import React from 'react';
 import { FieldInput, Button, FieldError } from '../Control/Input';
 import styled from 'styled-components';
+import { authenticate } from "../Authentication";
+import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
 
 const LoginButton = styled(Button)`
   align-self: flex-end;
@@ -23,16 +26,7 @@ class LoginForm extends React.Component {
     if (!this.state.username || !this.state.password) {
       this.setState({hasError: true, errorMessage: 'Username and password are required.'})
     } else {
-      return fetch('/api/login', {
-        body: JSON.stringify({username: 'test', password: 'password'}), // must match 'Content-Type' header
-        headers: {
-          'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      })
-        .then(response => {
-          console.log('tesponse', response.json().then(j => { console.log( j)}));
-        }) // parses response to JSON
+      this.props.authenticate(this.state.username, this.state.password);
     }
   };
 
@@ -44,7 +38,7 @@ class LoginForm extends React.Component {
     this.setState({password: event.target.value});
   };
 
-  render() {
+  renderLoginForm = () => {
     return (
       <form className={this.props.className} onSubmit={this.handleSubmit}>
         <FieldInput onChange={this.handleUsernameChange} type="text" label="Username" hasError={this.state.hasError}></FieldInput>
@@ -52,13 +46,26 @@ class LoginForm extends React.Component {
         {
           this.state.hasError ? <FieldError>{this.state.errorMessage}</FieldError> : null
         }
+        {
+          this.props.loginFailed ? <FieldError>Invalid username or password.</FieldError> : null
+        }
         <LoginButton type="submit">Login</LoginButton>
       </form>
+    )
+  };
+
+  render() {
+    return (
+      <div>
+      {
+        this.props.authenticated ? <Redirect to="/" /> : this.renderLoginForm()
+      }
+      </div>
     )
   }
 }
 
-export default styled(LoginForm)`
+const styledForm = styled(LoginForm)`
   width: 300px;
   margin: 0 auto;
   padding: 20px;
@@ -66,4 +73,13 @@ export default styled(LoginForm)`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-`
+`;
+
+const mapStateToProps = (state) => {
+  return {
+    loginFailed: state.authentication.error,
+    authenticated: state.authentication.authenticated
+  }
+};
+
+export default connect(mapStateToProps, { authenticate })(styledForm);
